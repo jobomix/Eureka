@@ -436,7 +436,7 @@ open class FormViewController: UIViewController, FormViewControllerProtocol, For
 
     /// Defines the behaviour of the navigation between rows
     public var navigationOptions: RowNavigationOptions?
-    public var tableViewStyle: UITableView.Style = .grouped
+    public var tableViewStyle: UITableView.Style = .insetGrouped
 
     public init(style: UITableView.Style) {
         super.init(nibName: nil, bundle: nil)
@@ -453,7 +453,7 @@ open class FormViewController: UIViewController, FormViewControllerProtocol, For
 
     open override func viewDidLoad() {
         super.viewDidLoad()
-        navigationAccessoryView = customNavigationAccessoryView ?? NavigationAccessoryView(frame: CGRect(x: 0, y: 0, width: view.frame.width, height: 44.0))
+        navigationAccessoryView = customNavigationAccessoryView ?? NavigationAccessoryView(frame: CGRect(x: 0, y: 0, width: view.frame.width, height: 60.0))
         navigationAccessoryView.autoresizingMask = .flexibleWidth
 
         if tableView == nil {
