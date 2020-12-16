@@ -34,11 +34,27 @@ open class ListCheckCell<T: Equatable> : Cell<T>, CellType {
     required public init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
     }
-
+    
+    /// Image for selected state
+    lazy public var trueImage: UIImage = {
+        if #available(iOS 13.0, *) {
+            let configuration = UIImage.SymbolConfiguration(pointSize: 18, weight: .bold, scale: .large)
+            return UIImage(systemName: "checkmark.circle.fill", withConfiguration: configuration)!
+        } else {
+            return UIImage(named: "checkmark.circle.fill")!
+        }
+        
+    }()
+    
     open override func update() {
         super.update()
-        accessoryType = row.value != nil ? .checkmark : .none
-        editingAccessoryType = accessoryType
+        
+        checkImageView?.image = row.value != nil ? trueImage : nil
+        checkImageView?.sizeToFit()
+        
+//        accessoryType = row.value != nil ? .checkmark : .none
+//
+//        editingAccessoryType = accessoryType
         selectionStyle = .default
         if row.isDisabled {
             tintAdjustmentMode = .dimmed
@@ -47,6 +63,24 @@ open class ListCheckCell<T: Equatable> : Cell<T>, CellType {
             tintAdjustmentMode = .automatic
         }
     }
+    
+    /// Image view to render images. If `accessoryType` is set to `checkmark`
+    /// will create a new `UIImageView` and set it as `accessoryView`.
+    /// Otherwise returns `self.imageView`.
+    open var checkImageView: UIImageView? {
+        guard accessoryType == .checkmark else {
+            return self.imageView
+        }
+        
+        guard let accessoryView = accessoryView else {
+            let imageView = UIImageView()
+            self.accessoryView = imageView
+            return imageView
+        }
+        
+        return accessoryView as? UIImageView
+    }
+    
 
     open override func setup() {
         super.setup()

@@ -83,7 +83,7 @@ open class BaseRow: BaseRowType {
         validationErrors = []
     }
 
-    public static var estimatedRowHeight: CGFloat = 60.0
+    public static var estimatedRowHeight: CGFloat = 44.0
 
     /// Condition that determines if the row should be disabled or not.
     public var disabled: Condition? {
